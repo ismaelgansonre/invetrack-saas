@@ -13,12 +13,18 @@ interface ProductState {
   currentProduct: Product | null;
   loading: boolean;
   error: string | null;
+  snackbar: {
+    open: boolean;
+    message: string;
+    severity: 'success' | 'error' | 'warning' | 'info';
+  };
 
   // Actions
   setProducts: (products: Product[]) => void;
   setCurrentProduct: (product: Product | null) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
+  setSnackbar: (snackbar: { open: boolean; message: string; severity: 'success' | 'error' | 'warning' | 'info' }) => void;
 
   // Product methods
   fetchProducts: (organizationId: string) => Promise<void>;
@@ -39,6 +45,11 @@ export const useProductStore = create<ProductState>()(
     currentProduct: null,
     loading: false,
     error: null,
+    snackbar: {
+      open: false,
+      message: '',
+      severity: 'success',
+    },
 
     // Actions
     setProducts: (products) => {
@@ -55,6 +66,10 @@ export const useProductStore = create<ProductState>()(
 
     setError: (error) => {
       set({ error });
+    },
+
+    setSnackbar: (snackbar) => {
+      set({ snackbar });
     },
 
     // Product methods
