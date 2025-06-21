@@ -9,8 +9,7 @@ Application frontend Next.js pour la gestion d'inventaire multi-entreprises.
 Créez un fichier `.env.local` à la racine du projet avec les variables suivantes :
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=https://quqkoacpcuegovmfsddg.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1cWtvYWNwY3VlZ292bWZzZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA1MjUwNTcsImV4cCI6MjA2NjEwMTA1N30.R2uIsVEx2EAMhxD0Bg5-u0hGgiNJRxU7SZmK4tfwc3k
+
 ```
 
 ### Installation des dépendances

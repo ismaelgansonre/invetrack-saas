@@ -1,5 +1,6 @@
 import './global.css';
 import { StoreProvider } from '../providers/StoreProvider';
+import { AuthProvider } from '../context/AuthContext';
 
 export const metadata = {
   title: 'Invetrack - Gestion d\'inventaire SaaS',
@@ -12,10 +13,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr">
-      <body>
+    <html lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <StoreProvider>
-          {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </StoreProvider>
       </body>
     </html>

@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useAuthStore } from '../stores/authStore';
+import { AuthProvider } from '../context/AuthContext';
 
 interface StoreProviderProps {
   children: React.ReactNode;
@@ -15,5 +16,9 @@ export const StoreProvider = ({ children }: StoreProviderProps) => {
     initialize();
   }, [initialize]);
 
-  return <>{children}</>;
+  return (
+    <AuthProvider>
+      {children}
+    </AuthProvider>
+  );
 }; 
