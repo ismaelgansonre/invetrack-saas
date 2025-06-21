@@ -66,7 +66,7 @@ export const useTransactionStore = create<TransactionState>()(
           .from('transactions')
           .select(`
             *,
-            products (name, sku)
+            products (name)
           `)
           .eq('organization_id', organizationId)
           .order('created_at', { ascending: false });
@@ -89,7 +89,7 @@ export const useTransactionStore = create<TransactionState>()(
           .from('transactions')
           .select(`
             *,
-            products (name, sku)
+            products (name)
           `)
           .eq('id', id)
           .single();
@@ -113,7 +113,7 @@ export const useTransactionStore = create<TransactionState>()(
           .insert(transaction)
           .select(`
             *,
-            products (name, sku)
+            products (name)
           `)
           .single();
 
@@ -142,7 +142,7 @@ export const useTransactionStore = create<TransactionState>()(
           .eq('id', id)
           .select(`
             *,
-            products (name, sku)
+            products (name)
           `)
           .single();
 
@@ -199,7 +199,7 @@ export const useTransactionStore = create<TransactionState>()(
           .from('transactions')
           .select(`
             *,
-            products (name, sku)
+            products (name)
           `)
           .eq('organization_id', organizationId)
           .eq('type', type)
@@ -223,7 +223,7 @@ export const useTransactionStore = create<TransactionState>()(
           .from('transactions')
           .select(`
             *,
-            products (name, sku)
+            products (name)
           `)
           .eq('organization_id', organizationId)
           .gte('created_at', startDate)
@@ -248,7 +248,7 @@ export const useTransactionStore = create<TransactionState>()(
           .from('transactions')
           .select(`
             *,
-            products (name, sku)
+            products (name)
           `)
           .eq('organization_id', organizationId)
           .eq('product_id', productId)
