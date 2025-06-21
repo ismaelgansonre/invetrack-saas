@@ -295,6 +295,76 @@ export type Database = {
           },
         ]
       }
+      transactions: {
+        Row: {
+          id: string
+          organization_id: string | null
+          type: string
+          product_id: string | null
+          quantity: number
+          unit_price: number
+          total_amount: number
+          description: string | null
+          reference_id: string | null
+          reference_type: string | null
+          created_by: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          organization_id?: string | null
+          type: string
+          product_id?: string | null
+          quantity: number
+          unit_price?: number
+          total_amount?: number
+          description?: string | null
+          reference_id?: string | null
+          reference_type?: string | null
+          created_by?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          organization_id?: string | null
+          type?: string
+          product_id?: string | null
+          quantity?: number
+          unit_price?: number
+          total_amount?: number
+          description?: string | null
+          reference_id?: string | null
+          reference_type?: string | null
+          created_by?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transactions_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transactions_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

@@ -3,6 +3,7 @@ import { subscribeWithSelector } from 'zustand/middleware';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase';
 import type { Database } from '../lib/database.types';
+import { logSupabaseError, handleSupabaseError } from '../lib/utils/errorHandling';
 
 type Profile = Database['public']['Tables']['profiles']['Row'];
 
@@ -67,7 +68,7 @@ export const useAuthStore = create<AuthState>()(
           await get().fetchProfile(data.user.id);
         }
       } catch (error) {
-        console.error('Sign in error:', error);
+        logSupabaseError('Sign in error', error);
         throw error;
       } finally {
         set({ loading: false });
@@ -95,7 +96,7 @@ export const useAuthStore = create<AuthState>()(
           await get().fetchProfile(data.user.id);
         }
       } catch (error) {
-        console.error('Sign up error:', error);
+        logSupabaseError('Sign up error', error);
         throw error;
       } finally {
         set({ loading: false });
@@ -114,7 +115,7 @@ export const useAuthStore = create<AuthState>()(
           isAuthenticated: false 
         });
       } catch (error) {
-        console.error('Sign out error:', error);
+        logSupabaseError('Sign out error', error);
         throw error;
       } finally {
         set({ loading: false });
@@ -138,27 +139,47 @@ export const useAuthStore = create<AuthState>()(
         set({ profile: data });
         return data;
       } catch (error) {
-        console.error('Update profile error:', error);
+        logSupabaseError('Update profile error', error);
         throw error;
       }
     },
 
     fetchProfile: async (userId: string) => {
       try {
-        const { data, error } = await supabase
+        const { data: profile, error } = await supabase
           .from('profiles')
           .select('*')
           .eq('id', userId)
-          .single();
+          .maybeSingle();
 
         if (error) {
-          console.error('Error fetching profile:', error);
+          logSupabaseError('Error fetching profile', error);
+          set({ profile: null });
           return;
         }
 
-        set({ profile: data });
+        if (profile) {
+          set({ profile });
+        } else {
+          console.log('Profile not found, creating new profile for user:', userId);
+          const { data: newProfile, error: createError } = await supabase
+            .from('profiles')
+            .insert({ id: userId })
+            .select()
+            .single();
+
+          if (createError) {
+            logSupabaseError('Error creating profile after not finding one', createError);
+            set({ profile: null });
+            return;
+          }
+
+          console.log('New profile created:', newProfile);
+          set({ profile: newProfile });
+        }
       } catch (error) {
-        console.error('Error fetching profile:', error);
+        logSupabaseError('A critical error occurred in fetchProfile', error);
+        set({ profile: null });
       }
     },
 
@@ -185,7 +206,7 @@ export const useAuthStore = create<AuthState>()(
           }
         });
       } catch (error) {
-        console.error('Auth initialization error:', error);
+        logSupabaseError('Auth initialization error', error);
       } finally {
         set({ loading: false });
       }
