@@ -1,6 +1,7 @@
 //app/inventory/infoCards.jsx
 
 import React from "react";
+import { Product } from "@invetrack/types";
 
 /**
  * InfoCards Component
@@ -13,27 +14,27 @@ import React from "react";
  *
  * @component
  */
-const InfoCards = ({ products }) => {
-  // Calculate total retail value
+const InfoCards = ({ products }: { products: Product[] }) => {
+  // Calculate total retail value (quantity * price)
   const totalRetailValue = products.reduce(
-    (acc, product) => acc + product.stock_retail_value,
+    (acc, product) => acc + product.quantity * product.price,
     0
   );
 
-  // Calculate total wholesale value
+  // Calculate total wholesale value (quantity * price)
   const totalWholesaleValue = products.reduce(
-    (acc, product) => acc + product.stock_wholesale_value,
+    (acc, product) => acc + product.quantity * product.price,
     0
   );
 
-  // Count items with low stock
+  // Count items with low stock (quantity <= min_quantity)
   const lowStockItems = products.filter(
-    (product) => product.total_quantity <= product.reorder_point
+    (product) => product.quantity <= product.min_quantity
   ).length;
 
-  // Sum up total quantity from the `total_quantity` field
+  // Sum up total quantity
   const totalUnits = products.reduce(
-    (acc, product) => acc + product.total_quantity,
+    (acc, product) => acc + product.quantity,
     0
   );
 
@@ -76,7 +77,7 @@ const InfoCards = ({ products }) => {
  *
  * @component
  */
-const InfoCard = ({ title, value, color }) => (
+const InfoCard = ({ title, value, color }: { title: string; value: string | number; color: string }) => (
   <div className={`p-3 ${color} rounded-lg shadow`}>
     <h3 className="text-xs font-medium text-gray-500 uppercase">{title}</h3>
     <p className="text-xl font-semibold text-gray-700">{value}</p>

@@ -47,7 +47,8 @@
     ".next/types/**/*.ts",
     "../../libs/ui/src/**/*",
     "../../libs/types/src/**/*",
-    "../../libs/utils/src/**/*"
+    "../../libs/utils/src/**/*",
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",

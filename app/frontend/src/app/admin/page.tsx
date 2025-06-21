@@ -5,7 +5,6 @@ import MainLayout from '@/layouts/MainLayout';
 import { useAuthStore } from '@/stores/authStore';
 import { usePermissions } from '@/hooks/usePermissions';
 import { Box, Typography, Alert, Card, CardContent, Grid, Chip } from '@mui/material';
-import SettingsDialog from '@/components/AccountSettings/SettingsDialog';
 import OrganizationMembers from '@/components/Organization/OrganizationMembers';
 import InvitationsManager from '@/components/Organization/InvitationsManager';
 import RolePermissions from '@/components/Organization/RolePermissions';

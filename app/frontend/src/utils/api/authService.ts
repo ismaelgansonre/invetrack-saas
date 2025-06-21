@@ -25,6 +25,39 @@ export const signUp = async (email: string, password: string, userData?: any) =>
 };
 
 /**
+ * User sign up with additional user data
+ */
+export const userSignUp = async (userData: any, setError?: (error: any) => void) => {
+  try {
+    const { email, password, firstName, lastName, cellNumber } = userData;
+    
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          first_name: firstName,
+          last_name: lastName,
+          cell_number: cellNumber,
+        },
+      },
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error in userSignUp:', error);
+    if (setError) {
+      setError(error);
+    }
+    throw error;
+  }
+};
+
+/**
  * Sign in a user
  */
 export const signIn = async (email: string, password: string) => {

@@ -26,9 +26,9 @@ import RecentActivity from "@/components/Dashboard/RecentActivity";
  */
 const DashboardPage = () => {
   const router = useRouter();
-  const { user, profile, isAuthenticated, loading: authLoading } = useAuthStore();
-  const { products, loading: productsLoading, fetchProducts } = useProductStore();
-  const { transactions, loading: transactionsLoading, fetchTransactions } = useTransactionStore();
+  const { profile, isAuthenticated, loading: authLoading } = useAuthStore();
+  const { loading: productsLoading, fetchProducts } = useProductStore();
+  const { loading: transactionsLoading, fetchTransactions } = useTransactionStore();
   const { currentOrganization, loading: orgLoading } = useOrganizationStore();
   
   const [isMobile, setIsMobile] = useState(false);

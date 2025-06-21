@@ -45,7 +45,7 @@ const NewProductPage = () => {
    * @param {Function} setErrorMessage - Callback to handle error messages in the form component.
    */
   const handleFormSubmit = useCallback(
-    async (productData, setErrorMessage) => {
+    async (productData: any, setErrorMessage: (message: string) => void) => {
       try {
         // Indicate loading state before starting the API call
         setLoading(true);
@@ -98,6 +98,7 @@ const NewProductPage = () => {
   return (
     <>
       <ProductForm
+        initialData={{}}
         onSubmit={handleFormSubmit}
         onCancel={handleFormClose}
         isNewProduct={true}

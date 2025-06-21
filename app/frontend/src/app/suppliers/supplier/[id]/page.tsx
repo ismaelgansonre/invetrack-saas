@@ -158,7 +158,7 @@ const EditSupplierPage = () => {
   if (!supplierData) return null;
 
   // Snackbar for success and error messages
-  const handleCloseSnackbar = (event, reason) => {
+  const handleCloseSnackbar = (event: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") return;
     setSnackbar({ open: false, message: "", severity: "success" });
   };

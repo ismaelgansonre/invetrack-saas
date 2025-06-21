@@ -5,6 +5,7 @@ import Header from "@/components/MainPageComponents/Header";
 import Sidebar from "@/components/MainPageComponents/Sidebar";
 import Footer from "@/components/MainPageComponents/Footer";
 import LogoutModal from "@/components/Modals/LogoutModal";
+import { LayoutProps } from "@/types/global";
 
 /**
  * MainLayout Component
@@ -16,7 +17,7 @@ import LogoutModal from "@/components/Modals/LogoutModal";
  * @param {Object} props
  * @param {React.ReactNode} props.children - The content to be rendered inside the layout
  */
-const MainLayout = ({ children }) => {
+const MainLayout = ({ children }: LayoutProps) => {
   const [isMobile, setIsMobile] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 

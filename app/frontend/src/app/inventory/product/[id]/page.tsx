@@ -55,8 +55,8 @@ const EditProductPage = () => {
 
       try {
         setLoading(true);
-        const data = await fetchProductById(params.id);
-        setProductData(data);
+        const data = await fetchProductById(params.id as string);
+        setProductData(data as any);
         setIsFetched(true); // Mark as fetched to avoid re-fetching
       } catch (error) {
         console.error("Error fetching product data:", error);
@@ -82,15 +82,15 @@ const EditProductPage = () => {
    * @param {Function} setErrorMessage - Function to set the error message in case of failure.
    */
   const handleFormSubmit = useCallback(
-    async (updatedData, setErrorMessage) => {
+    async (updatedData: any, setErrorMessage: any) => {
       if (!params.id) {
         setErrorMessage("Product ID is missing.");
         return;
       }
 
       // Determine which fields have changed
-      const changedFields = Object.keys(updatedData).reduce((acc, key) => {
-        if (
+      const changedFields = Object.keys(updatedData).reduce<Record<string, any>>((acc, key) => {
+        if (productData && 
           JSON.stringify(updatedData[key]) !== JSON.stringify(productData[key])
         ) {
           acc[key] = updatedData[key];
@@ -110,9 +110,8 @@ const EditProductPage = () => {
 
       try {
         setLoading(true);
-
         // Call the API to update the product
-        await updateProduct(params.id, changedFields, setErrorMessage);
+        await updateProduct(params.id.toString(), changedFields, setErrorMessage);
 
         // Update the product in the local state
         setProducts(
@@ -169,7 +168,7 @@ const EditProductPage = () => {
   if (!productData) return null;
 
   // Snackbar for success and error messages
-  const handleCloseSnackbar = (event, reason) => {
+  const handleCloseSnackbar = (event: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") return;
     setSnackbar({ open: false, message: "", severity: "success" });
   };

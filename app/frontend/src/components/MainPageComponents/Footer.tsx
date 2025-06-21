@@ -1,6 +1,7 @@
 //components/MainPageComponents/Footer.jsx
 
 import React from "react";
+import { BaseProps } from "@/types/global";
 
 /**
  * Footer Component
@@ -18,7 +19,7 @@ import React from "react";
  * @example
  * <Footer />
  */
-const Footer = ({ className }) => {
+const Footer = ({ className = "" }: BaseProps) => {
   const currentYear = new Date().getFullYear();
 
   return (

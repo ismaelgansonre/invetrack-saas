@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/stores/authStore';
 import { useProductStore } from '@/stores/productStore';
-import { Plus } from 'lucide-react';
+import Add from '@mui/icons-material/Add';
 
 // Import des composants
 import ProductList from '@/components/Inventory/ProductList/ProductList';
@@ -12,7 +12,7 @@ import ProductForm from '@/components/Forms/ProductForm/ProductForm';
 
 const InventoryPage = () => {
   const router = useRouter();
-  const { user, profile, isAuthenticated, loading: authLoading } = useAuthStore();
+  const { profile, isAuthenticated, loading: authLoading } = useAuthStore();
   const { products, loading: productsLoading, fetchProducts, deleteProduct } = useProductStore();
   
   const [showAddForm, setShowAddForm] = useState(false);
@@ -68,14 +68,6 @@ const InventoryPage = () => {
     }
   };
 
-  const handleFormSuccess = () => {
-    setShowAddForm(false);
-    setEditingProduct(null);
-    // Refresh products
-    if (profile?.organization_id) {
-      fetchProducts(profile.organization_id);
-    }
-  };
 
   const handleFormCancel = () => {
     setShowAddForm(false);
@@ -120,7 +112,7 @@ const InventoryPage = () => {
           onClick={handleAddProduct}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          <Plus className="w-4 h-4 mr-2" />
+          <Add className="w-4 h-4 mr-2" />
           Ajouter un produit
         </button>
       </div>
@@ -129,9 +121,10 @@ const InventoryPage = () => {
       {showAddForm ? (
         <div className="max-w-4xl mx-auto">
           <ProductForm
-            product={editingProduct}
-            onSuccess={handleFormSuccess}
+            initialData={editingProduct ?? {}}
+            onSubmit={() => {}}
             onCancel={handleFormCancel}
+            isNewProduct={!editingProduct}
           />
         </div>
       ) : (
@@ -194,7 +187,7 @@ const InventoryPage = () => {
           className="fixed z-50 flex items-center justify-center text-white transition-colors duration-300 bg-blue-500 rounded-full shadow-lg bottom-6 right-6 w-14 h-14 focus:outline-none hover:bg-blue-600"
           aria-label="Ajouter un produit"
         >
-          <Plus size={24} />
+          <Add />
         </button>
       )}
     </div>

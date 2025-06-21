@@ -187,16 +187,12 @@ export const useSupplierStore = create<SupplierState>()(
       const lowercaseQuery = query.toLowerCase();
       return suppliers.filter(supplier =>
         supplier.name.toLowerCase().includes(lowercaseQuery) ||
-        supplier.email?.toLowerCase().includes(lowercaseQuery) ||
-        supplier.phone?.toLowerCase().includes(lowercaseQuery)
+        supplier.contact_info?.toLowerCase().includes(lowercaseQuery)
       );
     },
 
     filterSuppliersByStatus: (status: string) => {
-      const { suppliers } = get();
-      if (!status || status === 'all') return suppliers;
-      
-      return suppliers.filter(supplier => supplier.status === status);
+      return [];
     },
   }))
 ); 

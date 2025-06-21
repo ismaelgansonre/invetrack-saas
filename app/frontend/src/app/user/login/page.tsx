@@ -20,7 +20,7 @@ import { useState, useEffect } from "react";
 import Alert from "@mui/material/Alert";
 import { useAuthError } from "@/utils/hooks/Errors";
 import SubmitButton from "@/components/Buttons/SubmitButton";
-import { getUserFriendlyErrorMessage } from "@/utils/api/errorHandling";
+import { getUserFriendlyErrorMessage } from "@/lib/utils/errorHandling";
 
 // ========================= SUMMARY =========================
 // This component is a login form that allows users to sign in
